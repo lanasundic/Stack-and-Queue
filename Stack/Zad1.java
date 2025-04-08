@@ -21,23 +21,23 @@ public class Zad1 {
         int n = izraz.length();
         int[] brojevi = new int[n];
         for(int i = 0; i < n; i++) {
-            brojevi[i] = -1;
+            brojevi[i] = -1;    //sve postavljamo na -1 jer pretpostavljamo da nijedna nije validna, pa cemo mijenjati one koje zapravo jesu
         }
         
         for(int i = 0; i < n; i++) {
-            char ch = izraz.charAt(i);
+            char ch = izraz.charAt(i);  //ch = izraz.charAt(i) uzima karakter sa pozicije i — biće ili ( ili ).
             
-            if (ch == '(') {
+            if (ch == '(') {    //ako naidjemo na ( guramo je na stack, tako pamtimo gde je ta otvorena zagrada, za slučaj da je kasnije možemo upariti sa nekom ).
                 stack.push(i);
             }
-            else if (ch == ')') {
-                if (!stack.isEmpty()) {
-                    int pozOtv = stack.pop();
-                    brojevi[pozOtv] = 0;
-                    brojevi[i] = 1;
+            else if (ch == ')') {   //ako naidjes na )
+                if (!stack.isEmpty()) {     //ako je stack i dalje pun
+                    int pozOtv = stack.pop();   //izbaci otvorenu zagradu iz stacka, jer je to par za )
+                    brojevi[pozOtv] = 0;    //na toj poziciji gde je bila (, postavljamo 0
+                    brojevi[i] = 1;         //Na trenutnoj poziciji ), postavljamo 1
                 }
                 else {
-                    brojevi[i] = -1;
+                    brojevi[i] = -1;    //ako je stack prazan znaci da ova ) nema s kim da se upari, i stampa se -1, odnosno ako nemamo odgovarajuću (.
                 }
             }
         }
@@ -52,6 +52,11 @@ public class Zad1 {
         String izraz = scanner.nextLine();  //unoz stringa
 
         int[] brojevi = zagrade(izraz);
+
+        for (int i = 0; i < brojevi.length; i++) {
+            System.out.print(brojevi[i]);
+        }
+        System.out.println();
 
         for (int i = 0; i < brojevi.length; i++) {
             System.out.print(brojevi[i]);
